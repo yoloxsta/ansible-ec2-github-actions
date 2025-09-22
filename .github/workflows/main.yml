@@ -8,6 +8,7 @@ on:
 jobs:
   run-playbooks:
     runs-on: ubuntu-latest
+
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,15 +21,17 @@ jobs:
           eval `ssh-agent -s`
           mkdir -p /home/runner/.ssh/
           
-          # Write SSH private key from secrets
-          echo "${{ secrets.SSH_KEY }}" > /home/runner/.ssh/id_rsa
+          # ✅ Write SSH private key (preserve newlines)
+          cat <<'EOF' > /home/runner/.ssh/id_rsa
+${{ secrets.SSH_KEY }}
+EOF
           chmod 600 /home/runner/.ssh/id_rsa
           
-          # Write known_hosts from secrets
+          # ✅ Write known_hosts
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > /home/runner/.ssh/known_hosts
           chmod 644 /home/runner/.ssh/known_hosts
           
-          # Debug to confirm key format
+          # Debug key format
           echo "===== SSH key head ====="
           head -5 /home/runner/.ssh/id_rsa
           echo "===== SSH key tail ====="
