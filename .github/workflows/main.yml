@@ -38,7 +38,7 @@ jobs:
         run: |
           ssh -i $HOME/.ssh/id_rsa \
               -o StrictHostKeyChecking=no \
-              ubuntu@184.73.113.226 "echo 'SSH connection successful'"
+              ubuntu@3.90.1.31 "echo 'SSH connection successful'"
 
       - name: Test Ansible connectivity
         run: ansible -i hosts.yml all -m ping
