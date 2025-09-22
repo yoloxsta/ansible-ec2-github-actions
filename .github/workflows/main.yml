@@ -1,53 +1,35 @@
 name: CI
 
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: [ "main" ]
-  workflow_dispatch:
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   run-playbooks:
     runs-on: ubuntu-latest
-
     steps: 
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           submodules: true
           
       - name: Setup SSH 
         shell: bash
         run: |
-          eval `ssh-agent -s`
-          mkdir -p /home/runner/.ssh/
-          
-          # ✅ Write SSH private key (preserve newlines)
-          cat <<'EOF' > /home/runner/.ssh/id_rsa
-${{ secrets.SSH_KEY }}
-EOF
-          chmod 600 /home/runner/.ssh/id_rsa
-          
-          # ✅ Write known_hosts
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > /home/runner/.ssh/known_hosts
-          chmod 644 /home/runner/.ssh/known_hosts
-          
-          # Debug key format
-          echo "===== SSH key head ====="
-          head -5 /home/runner/.ssh/id_rsa
-          echo "===== SSH key tail ====="
-          tail -2 /home/runner/.ssh/id_rsa
-          
-      - name: Test SSH connection
-        shell: bash
-        run: |
-          ssh -i /home/runner/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
-              ubuntu@184.73.113.226 "echo 'SSH connection successful'"
-          
-      - name: Test Ansible connectivity
-        shell: bash
-        run: ansible -i hosts.yml all -m ping
-          
-      - name: Run Ansible playbook
+         eval `ssh-agent -s`
+         mkdir -p /home/runner/.ssh/
+         touch /home/runner/.ssh/id_rsa
+         echo -e "${{secrets.SSH_KEY}}" > /home/runner/.ssh/id_rsa
+         chmod 700 /home/runner/.ssh/id_rsa
+         echo "${{secrets.SSH_KNOWN_HOSTS}}" >> /home/runner/.ssh/known_hosts
+         
+      - name: Run ansible script
         shell: bash 
-        run: ansible-playbook -i hosts.yml ansible-pb.yml
+        run: |
+          service ssh status
+          ansible-playbook -i hosts.yml ansible-pb.yml
