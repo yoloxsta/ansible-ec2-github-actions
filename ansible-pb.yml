@@ -3,16 +3,16 @@
   become: true
   tasks:
     - name: Install Git
-      yum:
+      apt:
         name: git
         state: present
     - name: Install python
-      yum:
+      apt:
         name: python
         state: present
 
     - name: Install nginx
-      yum:
+      apt:
         name: nginx
         state: latest
         update_cache: yes
