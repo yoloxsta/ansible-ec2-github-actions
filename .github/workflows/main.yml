@@ -17,28 +17,26 @@ jobs:
 
       - name: Setup SSH
         run: |
-          eval `ssh-agent -s`
-          mkdir -p /home/runner/.ssh/
+          eval $(ssh-agent -s)
+          mkdir -p $HOME/.ssh
 
-          # Write private key (preserve newlines)
-          cat <<'EOF' >/home/runner/.ssh/id_rsa
-${{ secrets.SSH_KEY }}
-EOF
-          chmod 600 /home/runner/.ssh/id_rsa
+          # Write private key preserving newlines
+          printf "%s\n" "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
 
           # Write known_hosts
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > /home/runner/.ssh/known_hosts
-          chmod 644 /home/runner/.ssh/known_hosts
+          printf "%s\n" "${{ secrets.SSH_KNOWN_HOSTS }}" > $HOME/.ssh/known_hosts
+          chmod 644 $HOME/.ssh/known_hosts
 
           # Debug key format
           echo "===== SSH key head ====="
-          head -5 /home/runner/.ssh/id_rsa
+          head -5 $HOME/.ssh/id_rsa
           echo "===== SSH key tail ====="
-          tail -2 /home/runner/.ssh/id_rsa
+          tail -2 $HOME/.ssh/id_rsa
 
       - name: Test SSH connection
         run: |
-          ssh -i /home/runner/.ssh/id_rsa \
+          ssh -i $HOME/.ssh/id_rsa \
               -o StrictHostKeyChecking=no \
               ubuntu@184.73.113.226 "echo 'SSH connection successful'"
 
@@ -47,5 +45,3 @@ EOF
 
       - name: Run Ansible playbook
         run: ansible-playbook -i hosts.yml ansible-pb.yml
-
-#
