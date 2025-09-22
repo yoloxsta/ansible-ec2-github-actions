@@ -19,15 +19,31 @@ jobs:
         run: |
           eval `ssh-agent -s`
           mkdir -p /home/runner/.ssh/
-          touch /home/runner/.ssh/id_rsa
+          
+          # Write SSH private key from secrets
           echo "${{ secrets.SSH_KEY }}" > /home/runner/.ssh/id_rsa
           chmod 600 /home/runner/.ssh/id_rsa
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> /home/runner/.ssh/known_hosts
           
-      - name: Test SSH connection (optional)
+          # Write known_hosts from secrets
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > /home/runner/.ssh/known_hosts
+          chmod 644 /home/runner/.ssh/known_hosts
+          
+          # Debug to confirm key format
+          echo "===== SSH key head ====="
+          head -5 /home/runner/.ssh/id_rsa
+          echo "===== SSH key tail ====="
+          tail -2 /home/runner/.ssh/id_rsa
+          
+      - name: Test SSH connection
         shell: bash
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@184.73.113.226 "echo 'SSH connection successful'"
+          ssh -i /home/runner/.ssh/id_rsa \
+              -o StrictHostKeyChecking=no \
+              ubuntu@184.73.113.226 "echo 'SSH connection successful'"
+          
+      - name: Test Ansible connectivity
+        shell: bash
+        run: ansible -i hosts.yml all -m ping
           
       - name: Run Ansible playbook
         shell: bash 
