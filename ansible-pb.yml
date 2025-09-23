@@ -328,3 +328,7 @@
         name: nginx
         state: started
         enabled: yes
+    
+    - name: Check disk usage
+      command: df -h
+      register: disk_usage
