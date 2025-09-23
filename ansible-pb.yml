@@ -30,8 +30,8 @@
 
     - name: Create static homepage
       copy:
-        src: index.html
-        dest: /usr/share/nginx/html/index.html
+        src: website/
+        dest: /usr/share/nginx/html/
         owner: ubuntu
         group: ubuntu
         mode: '0644'
