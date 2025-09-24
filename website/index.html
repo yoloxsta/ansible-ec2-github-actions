@@ -1,99 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>My Resume</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jennie Kim — Resume</title>
+
+  <!-- Embedded styles (still inside the single HTML file) -->
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #3b82f6;
+      --accent-2: #06b6d4;
+      --shadow: 0 6px 18px rgba(35,47,63,0.08);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background: linear-gradient(180deg, var(--bg), #eef2f7);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:32px auto;
+      padding:28px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      gap:28px;
+    }
+
+    /* header/left column */
+    .profile{
+      padding:28px;
+      background: linear-gradient(180deg, rgba(59,130,246,0.06), rgba(6,182,212,0.03));
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+
+    .avatar{
+      width:160px;
+      height:160px;
+      border-radius:12px;
+      object-fit:cover;
+      border:6px solid rgba(255,255,255,0.85);
+      box-shadow:0 8px 20px rgba(16,24,40,0.08);
+      background:#eee;
+    }
+
+    .name{
+      margin:16px 0 6px;
+      font-size:20px;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    .title{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .contact{
+      margin-top:18px;
+      width:100%;
+      text-align:left;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .contact a{ color:var(--accent); text-decoration:none; }
+    .chip{
+      display:inline-block;
+      padding:6px 8px;
+      border-radius:999px;
+      background:rgba(59,130,246,0.08);
+      color:var(--accent);
+      font-weight:600;
+      font-size:12px;
+      margin-top:10px;
+    }
+
+    /* right column */
+    .body{
+      padding:28px;
+    }
+
+    section{
+      margin-bottom:20px;
+    }
+
+    h2{
+      margin:0 0 10px 0;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    h3{
+      margin:0 0 10px 0;
+      font-size:15px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    p.lead{
+      margin:8px 0 0;
+      color:var(--muted);
+    }
+
+    ul.clean{
+      margin:8px 0 0 0;
+      padding-left:18px;
+    }
+
+    .skills-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+
+    .skill-tag{
+      background:#f1f5f9;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:#111827;
+    }
+
+    .row-between{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .section-sub{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .edu-title{
+      font-weight:700;
+      margin:0;
+      font-size:14px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .projects li, .experience li{
+      margin-bottom:6px;
+    }
+
+    /* responsive */
+    @media (max-width:880px){
+      .card{ grid-template-columns: 1fr; }
+      .profile{ flex-direction:row; gap:16px; align-items:center; padding:18px;}
+      .avatar{ width:96px; height:96px; border-radius:10px; }
+      .contact{ text-align:left; font-size:13px; }
+      .body{ padding:18px; }
+    }
+  </style>
 </head>
 <body>
-    <img src="images/jennie.jpg" height="200"alt="picture of shani">
-    <h1>Jennie Kim</h1>
-    <h3>Full Stack Developer👩‍💻💻📱</h3>
+  <div class="container">
+    <div class="card" role="region" aria-label="Resume">
+      <!-- left column: profile -->
+      <aside class="profile" aria-labelledby="nameHeading">
+        <img src="images/jennie.jpg" alt="Jennie Kim portrait" class="avatar" />
 
+        <div>
+          <div id="nameHeading" class="name">Jennie Kim</div>
+          <div class="title">Full-Stack Developer 👩‍💻</div>
+          <div class="chip" aria-hidden="true">BSc Computer Science</div>
+        </div>
 
-    <h1>Summary</h1>
-    <h4>BSc in Computer Science, GPA 85. with Full-Stack expertise in JavaScript, Java, HTML, CSS, React, Node.js, and MongoDB.</h4>
+        <div class="contact" style="margin-top:18px;">
+          <div><strong>Phone</strong><br/>054-1234567</div>
+          <div style="margin-top:8px;"><strong>Email</strong><br/>
+            <a href="mailto:shanibider@gmail.com">shanibider@gmail.com</a>
+          </div>
 
-    <h1>Education</h1>
-    <h2>Bachelor degree in Computer science,</h2>
-    <h4>The College of Management Academic Studies</h4>
-    <p>
-        <ul>
-            <li>Graduated with honors (GPA 85)</li>
-            <li>Specialization in Full-Stack development</li>
-            <li>Final project: "Wallety" - a family wallet Android app developed using Java, facilitating financial management for families. </li>
-            <li>Strong grasp of C++, and C#, OOP and parallel programming, data structures, algorithms, and design patterns.</li>
-        </ul>
-    </p>
+          <div style="margin-top:8px;"><strong>LinkedIn</strong><br/>
+            <a href="https://www.linkedin.com/in/shani-bider-0b1b3a1b0/" target="_blank" rel="noopener">linkedin.com/in/shani-bider</a>
+          </div>
 
-    <h1>Projects</h1>
-    <h2>Online Store</h2>
-    <h4>Full-stack web application for online shopping, built with React, Node.js, and MongoDB.</h4>
-    <p>
-        <ul>
-            <li>Developed a full-stack web application for online shopping, using React, Node.js, and MongoDB.</li>
-            <li>Implemented a user authentication system with fireStore database.</li>
-            <li>Implemented a shopping cart with Redux.</li>
-            <li>Implemented a payment system with PayPal API.</li>
-            <li>Deployed the application to Heroku.</li>
-        </ul>
-    </p>
+          <div style="margin-top:8px;"><strong>GitHub</strong><br/>
+            <a href="https://github.com/shanibider?tab=repositories" target="_blank" rel="noopener">github.com/shanibider</a>
+          </div>
 
+          <div class="muted" style="margin-top:12px; font-size:13px;">
+            Location: Yangon, Myanmar
+          </div>
+        </div>
+      </aside>
 
-    <h1>Work Experience</h1>
-    <h2>Accounting referent, Clal Insurance</h2>
-    <h4>2017-2019</h4>
-    <p>
-        <ul>
-            <li>Managed the accounting of the company's clients.</li>
-            <li>Managed the company's financial reports.</li>
-        </ul>
-    </p>
+      <!-- right column: main content -->
+      <main class="body">
+        <!-- Summary -->
+        <section aria-labelledby="summaryHeading">
+          <h2 id="summaryHeading">Summary</h2>
+          <p class="lead">
+            BSc in Computer Science (GPA 85). Full-Stack developer with hands-on experience in JavaScript, React, Node.js,
+            MongoDB and Java. Strong fundamentals in OOP, data structures, algorithms and system design.
+          </p>
+        </section>
 
+        <!-- Education -->
+        <section aria-labelledby="educationHeading">
+          <h2 id="educationHeading">Education</h2>
+          <div class="section-sub">
+            <div>
+              <p class="edu-title">Bachelor of Science — Computer Science</p>
+              <p class="muted">The College of Management Academic Studies • Graduated with honors (GPA 85)</p>
+              <ul class="clean">
+                <li>Specialization: Full-Stack Development</li>
+                <li>Final project: <em>Wallety</em> — family wallet Android app (Java)</li>
+                <li>Coursework: OOP, Parallel Programming, Data Structures & Algorithms, Design Patterns</li>
+              </ul>
+            </div>
+            <div class="muted" style="text-align:right; min-width:90px;">Class of 2019</div>
+          </div>
+        </section>
 
-    <h1>Technical Skills</h1>
-    <ul>
-        <li>Programming Languages: JavaScript, Java, HTML, CSS</li>
-        <li>Frameworks: React, Node.js, Express.js</li>
-        <li>Databases: MongoDB, fireStore, SQL</li>
-        <li>Tools: Git, GitHub, Heroku</li>
-    </ul>
-    
-    
-    <h1>Skills</h1>
-    <ul>
-        <li>Full-Stack Web Development</li>
-        <li>JavaScript, Java, HTML, CSS</li>
-        <li>Responsive Web Design</li>
-        <li>Problem Solving</li>
-        <li>Teamwork</li>
-        <li>Time Management</li>
-    </ul>
+        <!-- Projects -->
+        <section aria-labelledby="projectsHeading">
+          <h2 id="projectsHeading">Projects</h2>
 
+          <div>
+            <h3>Online Store — Full-Stack Web App</h3>
+            <p class="muted">React • Node.js • MongoDB • Redux • PayPal API • Deployed on Heroku</p>
+            <ul class="projects clean">
+              <li>Authentication and user management (Firestore used for auth data).</li>
+              <li>Shopping cart implemented with Redux; product catalog and checkout flows.</li>
+              <li>Payment integration using PayPal API; CI/CD deployment to Heroku.</li>
+            </ul>
+          </div>
+        </section>
 
-    <h1>Certifications</h1>
-    <h4>Full-Stack Web Development with React Specialization, Udemy</h4>
+        <!-- Experience -->
+        <section aria-labelledby="experienceHeading">
+          <h2 id="experienceHeading">Work Experience</h2>
 
+          <div>
+            <h3>Accounting Referent — Clal Insurance</h3>
+            <p class="muted">2017 — 2019</p>
+            <ul class="experience clean">
+              <li>Managed accounting for company clients and prepared financial reports.</li>
+              <li>Coordinated with teams to ensure timely financial documentation.</li>
+            </ul>
+          </div>
+        </section>
 
-    <h1>Hobbies</h1>
-    <h4>Sports, Healthy living, Wellness, Reading, hunging out with friends</h4>
+        <!-- Technical Skills -->
+        <section aria-labelledby="skillsHeading">
+          <h2 id="skillsHeading">Technical Skills</h2>
 
-    <h1>Contact</h1>
-    <h4>Phone: 054-1234567</h4>
-    <h4>Email:
-        <a href="mailto:shanibider@gmail.com">  
-    </a>    
-    </h4>
-    <h4>LinkedIn:
-        <a href="https://www.linkedin.com/in/shani-bider-0b1b3a1b0/">
-        </a>
-    </h4>
-    <h4>GitHub:
-        <a href="https://github.com/shanibider?tab=repositories"></a>           
-    </h4>
+          <div class="skills-list" role="list">
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Node.js / Express</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Firestore</span>
+            <span class="skill-tag">HTML &amp; CSS</span>
+            <span class="skill-tag">Git &amp; GitHub</span>
+            <span class="skill-tag">Heroku</span>
+            <span class="skill-tag">Redux</span>
+          </div>
+        </section>
 
+        <!-- Soft skills & Certs -->
+        <section aria-labelledby="otherHeading">
+          <h2 id="otherHeading">Skills &amp; Certifications</h2>
 
+          <div style="display:flex; gap:28px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:220px;">
+              <h3>Professional Skills</h3>
+              <ul class="clean">
+                <li>Responsive Web Design</li>
+                <li>Problem Solving</li>
+                <li>Teamwork &amp; Communication</li>
+                <li>Time Management</li>
+              </ul>
+            </div>
 
+            <div style="flex:1; min-width:220px;">
+              <h3>Certifications</h3>
+              <p class="muted">Full-Stack Web Development with React Specialization — Udemy</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hobbies -->
+        <section aria-labelledby="hobbiesHeading">
+          <h2 id="hobbiesHeading">Hobbies</h2>
+          <p class="lead">Sports, healthy living, reading, and hanging out with friends.</p>
+        </section>
+
+        <!-- Footer small note -->
+        <section>
+          <div class="muted" style="font-size:13px;">
+            Downloadable version available on request • References available upon request
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
 </body>
 </html>
